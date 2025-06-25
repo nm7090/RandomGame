@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/RandomGame/static/css/main.f855e6bc.css",
-    "main.js": "/RandomGame/static/js/main.e2f3f64e.js",
+    "main.js": "/RandomGame/static/js/main.7d356515.js",
     "static/js/488.51da928c.chunk.js": "/RandomGame/static/js/488.51da928c.chunk.js",
     "static/media/logo.svg": "/RandomGame/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/RandomGame/index.html",
     "main.f855e6bc.css.map": "/RandomGame/static/css/main.f855e6bc.css.map",
-    "main.e2f3f64e.js.map": "/RandomGame/static/js/main.e2f3f64e.js.map",
+    "main.7d356515.js.map": "/RandomGame/static/js/main.7d356515.js.map",
     "488.51da928c.chunk.js.map": "/RandomGame/static/js/488.51da928c.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.f855e6bc.css",
-    "static/js/main.e2f3f64e.js"
+    "static/js/main.7d356515.js"
   ]
 }
