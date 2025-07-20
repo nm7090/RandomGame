@@ -113,9 +113,8 @@ function UsernameSearch() {
         for(var i = 0; i < numGames; i++){
             var random = Math.floor(Math.random() * (names.length - 1))
             displayedGames.push(names[random])
-            console.log(random) 
+            names.splice(random, 1)
         }
-        console.log(displayedGames)
         setGameDisplayContent(displayedGames)
     }
 
