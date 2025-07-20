@@ -10,6 +10,8 @@ function UsernameSearch() {
     const [gameItems, setGameItems] = useState([])
     const [gameDisplayContent, setGameDisplayContent] = useState([])
     const [bestWithPlayersInput, setBestWithPlayersInput] = useState("")
+    const [generatedGamesNum, setGeneratedGamesNum] = useState("")
+    const [buttonActivation, setButtonActivation] = useState(true)
 
     const parser = new DOMParser();
 
@@ -19,6 +21,10 @@ function UsernameSearch() {
 
     const changeBestWithInput = (event) => {
         setBestWithPlayersInput(event.target.value)
+    }
+
+    const changeNumberGamesWithInput = (event) => {
+        setGeneratedGamesNum(event.target.value)
     }
 
     const grabOwnedGames = () => {
@@ -85,6 +91,34 @@ function UsernameSearch() {
         setGameDisplayContent(bestNumPlayersGames)
     }
 
+    const grabRecommendedGamesByMinMaxPlayers = (numPlayers, numGames) => {
+        var names = []
+        for (let i = 0; i < gameItems.length; i++) {
+            var item = gameItems[i]
+            if(item.nodeType !== Node.TEXT_NODE){
+                var stats = item.getElementsByTagName("stats")[0]
+                var minPlayers = stats.getAttribute("minplayers")
+                var maxPlayers = stats.getAttribute("maxplayers")
+                if(parseInt(minPlayers) <= parseInt(numPlayers) && parseInt(maxPlayers) >= parseInt(numPlayers)){
+                    var name = item.getElementsByTagName("name")[0].textContent
+                    var id = item.getAttribute("objectid")
+                    names.push({"name": name, "id": id})
+                }
+            }
+            
+        }
+
+        var displayedGames = []
+
+        for(var i = 0; i < numGames; i++){
+            var random = Math.floor(Math.random() * (names.length - 1))
+            displayedGames.push(names[random])
+            console.log(random) 
+        }
+        console.log(displayedGames)
+        setGameDisplayContent(displayedGames)
+    }
+
     const displayAllGames = () => {
 
         setGameDisplayContent(gameNames)
@@ -94,10 +128,20 @@ function UsernameSearch() {
         setUserDisplay( "Welcome " + userInput + "!")
         setUserName(userInput)
         grabOwnedGames()
+        setButtonActivation(false)
     }
 
     return(
         <div>
+
+            <ol style={{"float": "right", "width": "750px"}}>
+                {gameDisplayContent.length !== 0 ? gameDisplayContent.map((value) => {
+                    return(
+                        <li>{value["name"]}, {value["id"]}</li>
+                    )
+                }) : <p></p>}
+            </ol>
+
             <input id="userSearch" type="text" placeholder='Username' onChange={changeInput}/>
 
             <button onClick={displayUser}>Login</button>
@@ -106,24 +150,21 @@ function UsernameSearch() {
 
             <div>
                 <h2>Owned Games</h2>
-                <button onClick={grabOwnedGames}>Load Owned Games</button>
+                <button onClick={grabOwnedGames} disabled={buttonActivation}>Load Owned Games</button>
                 <p>Total Owned Games: {numGames}</p>
-                <button onClick={displayAllGames}>Show All Loaded Games</button>
+                <button onClick={displayAllGames} disabled={buttonActivation}>Show All Loaded Games</button>
             </div>
 
             <div>
-                <h2>Get Games by Best With Players</h2>
-                <input type='text' placeholder='Best With Players' onChange={setBestWithPlayersInput}/>
-                <button onClick={() => {grabRecommendedGamesByBestPlayers(bestWithPlayersInput)}}>Search</button>
+                <h2>Generation Settings</h2>
+                <input type='text' placeholder='Number of generated games' onChange={changeNumberGamesWithInput}/>
             </div>
 
-            <ol>
-                {gameDisplayContent.length !== 0 ? gameDisplayContent.map((value) => {
-                    return(
-                        <li>{value["name"]}, {value["id"]}</li>
-                    )
-                }) : <p></p>}
-            </ol>
+            <div>
+                <h2>Get Games by Amount of Players</h2>
+                <input type='text' placeholder='Best With Players' onChange={changeBestWithInput}/>
+                <button onClick={() => {grabRecommendedGamesByMinMaxPlayers(bestWithPlayersInput, generatedGamesNum)}} disabled={buttonActivation}>Search</button>
+            </div>
         </div>
     )
 }
