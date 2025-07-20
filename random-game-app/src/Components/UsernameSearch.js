@@ -111,6 +111,9 @@ function UsernameSearch() {
         var displayedGames = []
 
         for(var i = 0; i < numGames; i++){
+            if(names.length == 0){
+                break
+            }
             var random = Math.floor(Math.random() * (names.length - 1))
             displayedGames.push(names[random])
             names.splice(random, 1)
