@@ -159,7 +159,8 @@ function UsernameSearch() {
 
             <div>
                 <h2>Generation Settings</h2>
-                <input type='number' defaultValue={10} placeholder='Number of generated games' onChange={changeNumberGamesWithInput}/>
+                <label for="numGenerate">Number of Generated Games: </label>
+                <input name='numGenerate' type='number' defaultValue={10} onChange={changeNumberGamesWithInput}/>
             </div>
 
             <div>
