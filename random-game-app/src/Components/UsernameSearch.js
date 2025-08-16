@@ -111,7 +111,7 @@ function UsernameSearch() {
         var displayedGames = []
 
         for(var i = 0; i < numGames; i++){
-            if(names.length == 0){
+            if(names.length === 0){
                 break
             }
             var random = Math.floor(Math.random() * (names.length - 1))
@@ -159,12 +159,12 @@ function UsernameSearch() {
 
             <div>
                 <h2>Generation Settings</h2>
-                <input type='text' placeholder='Number of generated games' onChange={changeNumberGamesWithInput}/>
+                <input type='number' defaultValue={10} placeholder='Number of generated games' onChange={changeNumberGamesWithInput}/>
             </div>
 
             <div>
                 <h2>Get Games by Amount of Players</h2>
-                <input type='text' placeholder='Best With Players' onChange={changeBestWithInput}/>
+                <input type='number' placeholder='Best With Players' onChange={changeBestWithInput}/>
                 <button onClick={() => {grabRecommendedGamesByMinMaxPlayers(bestWithPlayersInput, generatedGamesNum)}} disabled={buttonActivation}>Search</button>
             </div>
         </div>
